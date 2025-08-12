@@ -539,12 +539,13 @@ def convert_midi_to_xml(midi_file_path, output_path, job_id=None, sheet_music_ti
 
 if __name__ == "__main__":
     import sys  
-    if len(sys.argv) < 3:
-        print("Usage: python midiToXml.py <input_midi_file> <output_xml_file> [<sheet_music_title>]")   
+    if len(sys.argv) != 2:
+        print("Usage: python midiToXml.py <job_id>")   
     else:
-        input_midi_file = sys.argv[1]
-        output_xml_file = sys.argv[2]
-        sheet_music_title = sys.argv[3] if len(sys.argv) > 3 else None
+        job_id = sys.argv[1]
+        input_midi_file = Path(f"uploads/{job_id}.mid")
+        output_xml_file = Path(f"uploads/{job_id}.xml")
+        sheet_music_title = job_id
     
-        convert_midi_to_xml(input_midi_file, output_xml_file, sheet_music_title=sheet_music_title)
+        convert_midi_to_xml(input_midi_file, output_xml_file, job_id=job_id, sheet_music_title=sheet_music_title)
         print(f"Conversion complete: {output_xml_file}")
